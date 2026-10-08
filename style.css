@@ -1,0 +1,332 @@
+/* ========================================================
+   바이브 카페 주문서 스타일시트 (style.css)
+   ======================================================== */
+
+/* --- 기본 리셋 및 전역 스타일 --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: '맑은 고딕', 'Malgun Gothic', sans-serif;
+  background-color: #faf6f0; /* 따뜻한 베이지 배경 */
+  color: #333333;
+  line-height: 1.6;
+  padding: 24px 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- 상단 카페 헤더 --- */
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header .logo {
+  position: relative;
+  display: inline-block;
+  font-size: 48px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+/* 커피잔 위로 피어오르는 김(증기) 효과 */
+header .logo::before,
+header .logo::after {
+  content: '~';
+  display: block;
+  position: absolute;
+  top: -6px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #a89280;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(0.5px);
+  animation: steamRise 2.4s ease-out infinite;
+}
+
+/* 왼쪽 김 줄기 */
+header .logo::before {
+  left: 28%;
+  animation-delay: 0s;
+}
+
+/* 오른쪽 김 줄기 */
+header .logo::after {
+  right: 32%;
+  animation-delay: 1.2s;
+}
+
+/* 김이 세로로 서서 위로 부드럽게 흔들리며 피어오르다 사라지는 키프레임 */
+@keyframes steamRise {
+  0% {
+    transform: translateY(6px) rotate(90deg) scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  60% {
+    opacity: 0.5;
+    transform: translateY(-10px) rotate(98deg) scale(1.1);
+  }
+  100% {
+    transform: translateY(-22px) rotate(82deg) scale(1.3);
+    opacity: 0;
+  }
+}
+
+header h1 {
+  font-size: 28px;
+  color: #6b4226; /* 시그니처 브라운 */
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 14px;
+  color: #7d6352;
+}
+
+/* --- 메인 주문서 컨테이너 --- */
+main {
+  width: 100%;
+  max-width: 520px; /* 최대 너비 520px, 가운데 정렬 */
+  background-color: #ffffff;
+  border-radius: 16px; /* 부드러운 둥근 모서리 */
+  box-shadow: 0 4px 16px rgba(107, 66, 38, 0.08); /* 부드러운 그림자 */
+  padding: 28px 24px;
+}
+
+/* --- 폼 그룹 및 레이블 공통 스타일 --- */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group > label,
+fieldset.form-group > legend {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4a2c17;
+  margin-bottom: 8px;
+}
+
+/* fieldset 기본 테두리 제거 */
+fieldset.form-group {
+  border: none;
+  padding: 0;
+}
+
+/* --- 입력창 (input, select, textarea) 스타일 --- */
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  width: 100%; /* 너비 100% */
+  padding: 10px; /* 패딩 10px */
+  border: 1px solid #ddd2c4;
+  border-radius: 8px; /* 둥근 모서리 8px */
+  font-size: 15px;
+  font-family: inherit;
+  background-color: #fdfcfb;
+  color: #333333;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 포커스 시 갈색 테두리 + 연한 갈색 그림자 */
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6b4226;
+  box-shadow: 0 0 0 3px rgba(107, 66, 38, 0.15);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* --- 라디오 버튼 & 체크박스 가로 배치 --- */
+fieldset.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px; /* gap 간격 */
+}
+
+/* 개별 라디오/체크박스 아이템 */
+fieldset.form-group > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #faf6f0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+fieldset.form-group > div label {
+  cursor: pointer;
+  font-size: 14px;
+  color: #493323;
+  user-select: none;
+}
+
+fieldset.form-group input[type="radio"],
+fieldset.form-group input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: #6b4226; /* 브라우저 기본 강조색을 갈색으로 */
+}
+
+/* --- 예상 금액 표시 영역 --- */
+.price-area {
+  font-size: 24px; /* 큰 글씨 24px */
+  font-weight: 700; /* 굵게 */
+  color: #6b4226; /* 갈색 */
+  text-align: center; /* 가운데 정렬 */
+  padding: 16px;
+  margin: 24px 0 20px 0;
+  background-color: #faf6f0;
+  border-radius: 12px;
+}
+
+/* --- 버튼 그룹 --- */
+.button-group {
+  display: flex;
+  gap: 12px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 주문하기 버튼: 갈색 배경(#6b4226), 흰색 글씨, hover 시 밝아짐 & 살짝 떠오름 */
+#submit-btn {
+  background-color: #6b4226;
+  color: #ffffff;
+  border: 1px solid #6b4226;
+  box-shadow: 0 2px 6px rgba(107, 66, 38, 0.2);
+}
+
+#submit-btn:hover {
+  background-color: #835230; /* 약간 밝은 갈색 */
+  border-color: #835230;
+  transform: translateY(-3px); /* 위로 살짝 떠오름 */
+  box-shadow: 0 6px 14px rgba(107, 66, 38, 0.28); /* 떠오르면서 그림자 깊어짐 */
+}
+
+#submit-btn:active {
+  transform: translateY(-1px); /* 클릭 시 살짝 눌리는 느낌 */
+  box-shadow: 0 3px 8px rgba(107, 66, 38, 0.2);
+}
+
+/* 다시 작성 버튼: 흰 배경 + 갈색 테두리 */
+#reset-btn {
+  background-color: #ffffff;
+  color: #6b4226;
+  border: 1px solid #6b4226;
+}
+
+#reset-btn:hover {
+  background-color: #faf6f0;
+}
+
+/* --- 주문 확인 메시지 (연두색 배경, 초록 글씨, 둥근 모서리) --- */
+.confirm-message {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #e8f5e9; /* 연두색 배경 */
+  color: #2e7d32; /* 초록 글씨 */
+  border: 1px solid #c8e6c9;
+  border-radius: 8px; /* 둥근 모서리 */
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* 주문 완료 배지 스타일 */
+.confirm-badge {
+  display: inline-block;
+  background-color: #2e7d32;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+/* 통통 튀는 바운스 애니메이션 클래스 */
+.bounce-badge {
+  animation: bounceAnim 0.7s cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+/* 잠깐 통통 튀는 키프레임 */
+@keyframes bounceAnim {
+  0% {
+    transform: scale(0.3) translateY(0);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1.15) translateY(-8px);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.95) translateY(2px);
+  }
+  70% {
+    transform: scale(1.05) translateY(-4px);
+  }
+  85% {
+    transform: scale(0.98) translateY(1px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* --- 숨김 유틸리티 클래스 --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- 모바일 반응형 최적화 --- */
+@media (max-width: 480px) {
+  body {
+    padding: 16px 12px;
+  }
+
+  main {
+    padding: 20px 16px;
+  }
+
+  .button-group {
+    flex-direction: column; /* 모바일 환경에서 버튼 세로 정렬 */
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+
+  fieldset.form-group > div {
+    flex: 1 1 calc(50% - 6px); /* 작은 화면에서 옵션들을 2열로 균등 배치 */
+    box-sizing: border-box;
+  }
+}
+
